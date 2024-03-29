@@ -1,0 +1,30 @@
+int sensor_pin = A0;
+int relay_pin = 7;
+void setup()
+{
+Serial.begin(9600);
+pinMode(sensor_pin, INPUT);
+pinMode(relay_pin, OUTPUT);
+}
+void loop()
+{
+int sensor_data = analogRead(sensor_pin);
+
+Serial.println(sensor_data);
+if(sensor_data>950)
+{
+Serial.println("No moisture, soil is dry");
+digitalWrite(relay_pin, HIGH);
+}
+else if(sensor_data>=500 && sensor_data<=700)
+{
+Serial.println("There is some moisture, soil is medium");
+digitalWrite(relay_pin, LOW);
+}
+else if(sensor_data<400)
+{
+Serial.println("soil i wet");
+digitalWrite(relay_pin, LOW);
+}
+delay(100);
+}
